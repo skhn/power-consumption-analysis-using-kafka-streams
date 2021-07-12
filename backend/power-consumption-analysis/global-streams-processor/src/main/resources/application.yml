@@ -1,0 +1,33 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        global-input-channel:
+          destination: pca-global
+        voltage-input-channel:
+          destination: pca-voltage
+        active-energy-channel:
+          destination: active-energy-consumed
+      kafka:
+        streams:
+          binder:
+            brokers: localhost:9092
+            configuration:
+              commit.interval.ms: 10000
+              state.dir: state-store
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+          bindings:
+            global-input-channel:
+              consumer:
+                timestampExtractorBeanName: globalPowerTimeExtractor
+            voltage-input-channel:
+              consumer:
+                timestampExtractorBeanName: voltageTimeExtractor
+
+application:
+  configs:
+    error.topic.name: error-topic

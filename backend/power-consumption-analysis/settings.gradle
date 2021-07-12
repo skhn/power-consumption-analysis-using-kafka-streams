@@ -1,0 +1,5 @@
+rootProject.name = 'power-consumption-analysis'
+include 'power-streams-generator'
+include 'voltage-streams-generator'
+include 'submeter1-streams-generator'
+include 'submeter3-streams-generator'
