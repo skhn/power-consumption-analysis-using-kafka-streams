@@ -11,3 +11,17 @@ public class SubmeterProcessorApplication {
     }
 
 }
+
+
+/*
+submeter1  - dishwasher - 0.7
+submeter1  - microwave  - 0.3
+
+submeter2   - washer/dryer  - 0.35
+submeter2   - a refrigerator - 0.6
+submeter2   - lights - 0.05
+
+submeter3  - water-heater - 0.6
+submeter3  - air-conditioner. - 0.4
+
+ */

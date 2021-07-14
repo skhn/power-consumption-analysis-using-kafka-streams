@@ -1,0 +1,19 @@
+server:
+  port: 8005
+
+spring:
+  kafka:
+    producer:
+      client-id: json-s1
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
+
+application:
+  config:
+    kafka:
+      topic-name: pca-submeters-1-3
+    data:
+      filepath: "data/household_power_consumption_s1.csv"

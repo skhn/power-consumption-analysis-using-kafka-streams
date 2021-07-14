@@ -1,0 +1,19 @@
+server:
+  port: 8006
+
+spring:
+  kafka:
+    producer:
+      client-id: avro-s2
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      properties:
+        schema.registry.url: http://localhost:8081
+
+application:
+  config:
+    kafka:
+      topic-name: pca-submeter-2
+    data:
+      filepath: "data/household_power_consumption_s2.csv"
