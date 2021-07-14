@@ -6,6 +6,7 @@ import com.power_consumption_analysis.globalstreamsprocessor.dto.GlobalCompiled;
 import com.power_consumption_analysis.globalstreamsprocessor.dto.GlobalPower;
 import com.power_consumption_analysis.globalstreamsprocessor.dto.GlobalVoltage;
 import com.power_consumption_analysis.globalstreamsprocessor.dto.GlobalWattage;
+import com.power_consumption_analysis.globalstreamsprocessor.service.EventProcessorService;
 import com.power_consumption_analysis.globalstreamsprocessor.util.RecordBuilder;
 import com.power_consumption_analysis.globalstreamsprocessor.util.TimeExtractorUtil;
 import lombok.extern.log4j.Log4j2;
@@ -42,6 +43,9 @@ public class GlobalStreamListener {
     @Value("application.configs.error.topic.name")
     String ERROR_TOPIC;
 
+    @Autowired
+    EventProcessorService eventProcessorService;
+
     @StreamListener
     public void process(@Input("global-input-channel") KStream<String, GlobalPower> powerStream,
                         @Input("voltage-input-channel") KStream<String, GlobalVoltage> voltageStream) {
@@ -70,9 +74,12 @@ public class GlobalStreamListener {
                                 .withKeySerde(Serdes.String())
                                 .withValueSerde(new JsonSerde<>(GlobalWattage.class)))
                 .toStream()
-                .peek((k, v) -> log.info("Key: {} and Value: {}", k, v))
+                .peek((k, v) -> {
+                    v.setDateTime(k);
+                    eventProcessorService.handleEvent(v);
+                    log.info("Key: {} and Value: {}", k, v);
+                })
                 .to(TOPIC, Produced.with(Serdes.String(), new JsonSerde<>(GlobalWattage.class)));
-
     }
 
     private boolean isParseable(GlobalCompiled v) {
