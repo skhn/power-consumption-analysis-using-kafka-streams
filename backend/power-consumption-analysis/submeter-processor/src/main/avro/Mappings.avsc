@@ -1,0 +1,28 @@
+{
+  "namespace": "com.kinandcarta.usfoods.kafka.submeter2",
+  "type": "record",
+  "name": "Mappings",
+  "fields": [
+    {
+      "name": "Stream",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "name": "Mapping",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "name": "Multiplier",
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  ]
+}

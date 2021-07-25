@@ -68,6 +68,11 @@
         </dependency>
         <dependency>
             <groupId>io.confluent</groupId>
+            <artifactId>kafka-streams-json-schema-serde</artifactId>
+            <version>6.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.confluent</groupId>
             <artifactId>kafka-streams-avro-serde</artifactId>
             <version>6.0.0</version>
         </dependency>
@@ -118,6 +123,7 @@
                             <outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
                             <imports>
                                 <import>${project.basedir}/src/main/avro/Submeter2.avsc</import>
+                                <import>${project.basedir}/src/main/avro/Mappings.avsc</import>
                             </imports>
                             <stringType>String</stringType>
                         </configuration>

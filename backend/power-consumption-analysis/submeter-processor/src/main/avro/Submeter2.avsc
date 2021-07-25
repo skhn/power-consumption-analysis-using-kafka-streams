@@ -1,0 +1,28 @@
+{
+  "namespace": "com.kinandcarta.usfoods.kafka.submeter2",
+  "type": "record",
+  "name": "Submeter2",
+  "fields": [
+    {
+      "name": "Date",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "name": "Time",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "name": "Sub_metering_2",
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  ]
+}

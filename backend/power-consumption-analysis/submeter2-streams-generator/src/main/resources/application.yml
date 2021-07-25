@@ -15,5 +15,11 @@ application:
   config:
     kafka:
       topic-name: pca-submeter-2
+      topic-name-map: pca-mappings
     data:
       filepath: "data/household_power_consumption_s2.csv"
+      mapping:
+        kitchen-misc: 55
+        kitchen-light: 5
+        microwave: 15
+        dishwasher: 25
