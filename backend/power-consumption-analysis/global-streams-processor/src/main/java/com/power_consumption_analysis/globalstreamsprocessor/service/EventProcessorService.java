@@ -1,6 +1,7 @@
 package com.power_consumption_analysis.globalstreamsprocessor.service;
 
 import com.power_consumption_analysis.globalstreamsprocessor.dto.GlobalWattage;
+import com.power_consumption_analysis.globalstreamsprocessor.dto.GlobalWattageMin;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
@@ -26,14 +27,18 @@ public class EventProcessorService {
 
     }
 
-    public GlobalWattage getProcessedEvent() {
+    public GlobalWattageMin getProcessedEvent() {
 
         if (globalWattageHashMap.size() > 3) {
             Map.Entry<String, GlobalWattage> firstRecord = Collections.min(globalWattageHashMap.entrySet(),
                     Comparator.comparing(Map.Entry::getKey));
             globalWattageHashMap.remove(firstRecord.getKey());
             log.info(firstRecord);
-            return firstRecord.getValue();
+
+            return  GlobalWattageMin.builder()
+                    .dateTime(firstRecord.getValue().getDateTime())
+                    .avgWatts(firstRecord.getValue().getAvgWatts())
+                    .build();
         }
         return null;
     }

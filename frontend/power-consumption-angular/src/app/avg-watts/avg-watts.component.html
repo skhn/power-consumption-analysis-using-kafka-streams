@@ -1,1 +1,8 @@
-<p>avg-watts works!</p>
+<app-avg-watts-chart [data]= "data"></app-avg-watts-chart>
+<hr>
+<h4>Events received from Server:</h4>
+<ul>
+    <li *ngFor="let dataEvent of data">
+        {{ dataEvent.dateTime }} :: {{ dataEvent.avgWatts }}
+    </li>
+</ul>

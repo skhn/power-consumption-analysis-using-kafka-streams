@@ -23,7 +23,10 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.kafka.support.serializer.JsonSerde;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 
 @Log4j2
 @Service
@@ -64,7 +67,7 @@ public class GlobalStreamListener {
 
         joinedStream
                 .filter((k, v) -> isParseable(v))
-                .map((k, v) -> new KeyValue<>(k.split(":")[0] + " : HH :" + k.split(":")[1],
+                .map((k, v) -> new KeyValue<>(k.split(":")[0] + "|" + k.split(":")[1],
                         (Double.parseDouble(v.getCurrent()) * Double.parseDouble(v.getVoltage()))))
                 .groupByKey(Serialized.with(Serdes.String(), Serdes.Double()))
                 .aggregate(
@@ -75,7 +78,18 @@ public class GlobalStreamListener {
                                 .withValueSerde(new JsonSerde<>(GlobalWattage.class)))
                 .toStream()
                 .peek((k, v) -> {
-                    v.setDateTime(k);
+                    String originalFormat = "dd/MM/yyyy|HH";
+                    String correctedFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+
+                    SimpleDateFormat inputFormat = new SimpleDateFormat(originalFormat);
+                    SimpleDateFormat outputFormat = new SimpleDateFormat(correctedFormat);
+
+                    try {
+                        Date date = inputFormat.parse(k);
+                        v.setDateTime(outputFormat.format(date));
+                    } catch (ParseException e) {
+                       log.info("Error parsing Date");
+                    }
                     eventProcessorService.handleEvent(v);
                     log.info("Key: {} and Value: {}", k, v);
                 })

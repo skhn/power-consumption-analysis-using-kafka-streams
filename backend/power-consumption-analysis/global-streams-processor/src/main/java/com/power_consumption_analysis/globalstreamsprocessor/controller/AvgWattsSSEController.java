@@ -2,6 +2,8 @@ package com.power_consumption_analysis.globalstreamsprocessor.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.power_consumption_analysis.globalstreamsprocessor.dto.GlobalWattage;
+import com.power_consumption_analysis.globalstreamsprocessor.dto.GlobalWattageMin;
 import com.power_consumption_analysis.globalstreamsprocessor.service.EventProcessorService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,17 +25,14 @@ public class AvgWattsSSEController {
     EventProcessorService eventProcessorService;
 
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin("http://localhost:4200")
     @GetMapping(path = "/energy-data-stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<String> streamEvents() {
+    public Flux<GlobalWattageMin> streamEvents() {
         ObjectMapper objectMapper = new ObjectMapper();
-        return Flux.interval(Duration.ofMinutes(1))
+        return Flux.interval(Duration.ofSeconds(30))
                 .map(events -> {
-                    try {
-                        return objectMapper.writeValueAsString(eventProcessorService.getProcessedEvent()) + "\n";
-                    } catch (JsonProcessingException e) {
-                        throw new RuntimeException(e);
-                    }
+                    GlobalWattageMin captured =  eventProcessorService.getProcessedEvent();
+                   return null == captured ? GlobalWattageMin.builder().dateTime("--").avgWatts(0).build() : captured;
                 });
     }
 

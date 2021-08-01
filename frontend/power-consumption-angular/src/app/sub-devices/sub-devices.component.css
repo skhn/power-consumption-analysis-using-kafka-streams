@@ -1,0 +1,44 @@
+.tl {
+    position: absolute;
+    width: 600px;
+    top: 0;
+    left: 0;
+    right: 600px;
+    bottom: 435px;
+    height: 435px;
+    border: solid #000;
+  }
+  .tr {
+    position: absolute;
+    width: 600px;
+    top: 0;
+    left: 600px;
+    right: 0;
+    bottom: 435px;
+    height: 435px;
+    border: solid #000;
+  }
+  .bl {
+    position: absolute;
+    width: 600px;
+    top: 435px;
+    left: 0;
+    right: 600px;
+    height: 435px;
+    border: solid #000;
+  }
+  .br {
+    position: absolute;
+    width: 600px;
+    top: 435px;
+    left: 600px;
+    right: 0;
+    height: 435px;
+    border: solid #000;
+  }
+
+  .quadrants {
+      width: 1200px;
+        height: 800px;
+        margin-top: 200px;
+  }

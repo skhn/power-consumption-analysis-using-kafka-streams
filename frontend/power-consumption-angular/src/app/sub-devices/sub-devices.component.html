@@ -1,1 +1,21 @@
-<p>sub-devices works!</p>
+<!-- 
+  <div class="tl"></div>
+  <div class="tr"></div>
+  <div class="bl"></div>
+  <div class="br"></div> -->
+<div class="quadrants">
+    <app-sub-device-chart class="tl" [data]= "data"></app-sub-device-chart>
+    <app-sub-device-chart class="tr" [data]= "data"></app-sub-device-chart>
+    <app-sub-device-chart class="bl" [data]= "data"></app-sub-device-chart>
+    <app-sub-device-chart class="br" [data]= "data"></app-sub-device-chart>
+</div>
+
+<div>
+    <hr>
+    <h4>Events received from Server:</h4>
+    <ul>
+        <li *ngFor="let dataEvent of data">
+            {{ dataEvent.Date }} :: {{ dataEvent.Sub_metering_2 }}
+        </li>
+    </ul>
+</div>

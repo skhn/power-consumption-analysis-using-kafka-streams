@@ -19,7 +19,7 @@ public class EnrichedS2Reading {
     private String time;
 
     @JsonProperty("Sub_metering_2")
-    private String s2Meter;
+    private Double s2Meter;
 
     @JsonProperty("Mapping")
     private List<Map<String, String>> mapping;
