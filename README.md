@@ -1,3 +1,18 @@
+
+
+Demo v0.1:
+
+![IMG_7317](https://user-images.githubusercontent.com/18000907/129836909-5a7df008-1d99-45e8-9ab5-b4a9e84f5905.jpg)
+
+
+
+https://user-images.githubusercontent.com/18000907/129839369-7e380cd9-2037-4e86-8d85-503589bb5a68.mov
+
+
+
+
+
+
 # power-consumption-analysis-using-kafka-streams
 
 This is an application created to showcase the use of kafka streams in the analysis of power consumption events for a particular household for a period of 47 months.
